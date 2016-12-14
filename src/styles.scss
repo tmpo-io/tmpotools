@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+
+@import "scss/reset";
+
+
+body {
+  font-family: Consolas, Menlo, monospace;
+  background-color: #eaeaea;
+}
+
+
+.wrap {
+  max-width: 1200px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+
+nav {
+  li { list-style: none }
+}
