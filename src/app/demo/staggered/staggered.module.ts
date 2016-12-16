@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 
 import { TmpoStaggeredModule } from '../../staggered/staggered';
 
-import { DemoStaggeredComponent } from './demo.component';
+import { DemoStaggeredComponent } from './staggered.component';
 
 
 const ROUTES: Routes = [{

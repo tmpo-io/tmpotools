@@ -10,13 +10,7 @@ import { Component } from '@angular/core';
      opacity: 1
    }
   `],
-  template: `
-    <div
-      *ngFor="let item of values; let i = index"
-      [tmpoStaggered]="i*200">
-      {{ item }}
-    </div>
-  `
+  templateUrl: './staggered.component.html'
 })
 export class DemoStaggeredComponent {
 

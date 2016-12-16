@@ -1,0 +1,8 @@
+<h1>Staggered Demo</h1>
+<p>A directive that adds the avility to stagger animations, adding a class</p>
+
+<div
+  *ngFor="let item of values; let i = index"
+  [tmpoStaggered]="i*200">
+  {{ item }}
+</div>
