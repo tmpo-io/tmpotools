@@ -5,11 +5,11 @@ import {
 } from '@angular/core';
 
 @Directive({
-  selector: '[tmpo-staggered]'
+  selector: '[tmpoStaggered]'
 })
 export class StaggeredDirective implements OnInit {
 
-  @Input() appStaggered: number;
+  @Input() tmpoStaggered: number;
 
   constructor(private el: ElementRef,
     private renderer: Renderer) { }
@@ -28,7 +28,7 @@ export class StaggeredDirective implements OnInit {
   }
 
   get delay(): string {
-    return this.appStaggered + 'ms';
+    return this.tmpoStaggered + 'ms';
   }
 
 }
