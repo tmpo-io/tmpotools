@@ -22,6 +22,10 @@ const ROUTES: Routes = [
   {
     path: 'spritesheet',
     loadChildren: 'app/demo/sprited/sprited.module#DemoSpritedModule'
+  },
+  {
+    path: 'writer',
+    loadChildren: 'app/demo/writed/writed.module#DemoWritedModule'
   }
 ];
 
