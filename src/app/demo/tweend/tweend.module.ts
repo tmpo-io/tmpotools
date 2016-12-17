@@ -40,16 +40,10 @@ export class TweenDemoComponent {
 
   constructor(public tween: TmpoTweenService) { }
 
-  tweenIt() {
-    let t = this.tween.to(this, 1000, {
-      top: 100,
-      left: 500
-    }, Easing.easeInBack).subscribe(v => Object.assign(this, v));
-  }
-
   @HostListener('window:click', ['$event'])
   tweenTo(e) {
-    console.log(e);
+    // console.log(e);
+    this.tween.stopAll();
     this.tween.to(this, 1000, {
       top: e.pageY,
       left: e.pageX
