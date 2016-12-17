@@ -18,6 +18,10 @@ const ROUTES: Routes = [
   {
     path: 'tween',
     loadChildren: 'app/demo/tweend/tweend.module#DemoTweenModule'
+  },
+  {
+    path: 'spritesheet',
+    loadChildren: 'app/demo/sprited/sprited.module#DemoSpritedModule'
   }
 ];
 
