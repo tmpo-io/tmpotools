@@ -1,10 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-
 import { CommonModule } from '@angular/common';
 
-import { TmpoStaggeredModule } from '../../staggered/staggered';
 
+import { TmpoStaggeredModule } from '../../staggered/staggered';
 import { DemoStaggeredComponent } from './staggered.component';
 
 
