@@ -14,6 +14,10 @@ const ROUTES: Routes = [
   {
     path: 'sortable',
     loadChildren: 'app/demo/sortable/sortabled.module#DemoSortableModule'
+  },
+  {
+    path: 'tween',
+    loadChildren: 'app/demo/tweend/tweend.module#DemoTweenModule'
   }
 ];
 
