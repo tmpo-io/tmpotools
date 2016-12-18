@@ -38,7 +38,6 @@ export class WritedDemoComponent {
   constructor() { }
 
   next() {
-    console.log('complete called');
     this.step++;
   }
 

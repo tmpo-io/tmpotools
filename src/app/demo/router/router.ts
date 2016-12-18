@@ -26,6 +26,10 @@ const ROUTES: Routes = [
   {
     path: 'writer',
     loadChildren: 'app/demo/writed/writed.module#DemoWritedModule'
+  },
+  {
+    path: 'backdrop',
+    loadChildren: 'app/demo/backdrop/backdroped.module#DemoBackdropedModule'
   }
 ];
 
