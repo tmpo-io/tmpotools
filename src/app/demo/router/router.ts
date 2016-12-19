@@ -30,6 +30,10 @@ const ROUTES: Routes = [
   {
     path: 'backdrop',
     loadChildren: 'app/demo/backdrop/backdroped.module#DemoBackdropedModule'
+  },
+  {
+    path: 'experiment',
+    loadChildren: 'app/demo/experiment/experiment.module#ExperimentModule'
   }
 ];
 
