@@ -45,13 +45,14 @@ export class TmpoAnimDirective implements OnInit {
 
 
 @Component({
-  selector: 'tmpoAnimGroup',
+  selector: '[tmpoAnimGroup]',
   template: '<ng-content></ng-content>'
 })
 export class TmpoAnimatedGroupComponent implements AfterContentInit, AfterContentChecked {
 
   @Input() transition: string;
   @Input() stagger: number;
+  @Input() transform: string;
 
   @ContentChildren(TmpoAnimDirective) group: QueryList<TmpoAnimDirective>;
 
@@ -64,7 +65,11 @@ export class TmpoAnimatedGroupComponent implements AfterContentInit, AfterConten
       i++;
       setTimeout(() => {
         console.log(el);
-        el.setStyle('transform', el.tmpoAnim);
+        if  (!el.tmpoAnim) {
+          el.setStyle('transform', this.transform);
+        } else {
+          el.setStyle('transform', el.tmpoAnim);
+        }
       }, 1);
     });
   }
