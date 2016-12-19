@@ -2,6 +2,7 @@ import { NgModule, Component } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { TmpoStaggeredModule } from '../../staggered/staggered';
 
 @Component({
   selector: 'app-nav',
@@ -23,10 +24,12 @@ export class AppNavMenuComponent {
 
 
 
+
 @NgModule({
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    TmpoStaggeredModule
   ],
   declarations: [
     AppNavMenuComponent

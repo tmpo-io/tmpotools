@@ -18,8 +18,8 @@ export class StaggeredDirective implements OnInit {
 
     // console.log('Element', this.el);
     this.renderer.setElementStyle(
-        this.el.nativeElement, 'transition-delay', this.delay
-      );
+      this.el.nativeElement, 'transition-delay', this.delay
+    );
     setTimeout(() => {
       this.renderer.setElementClass(
         this.el.nativeElement, 'tmpoIn', true);
@@ -33,10 +33,52 @@ export class StaggeredDirective implements OnInit {
 
 }
 
+@Directive({
+  selector: '[tmpoStaggeredSvg]'
+})
+export class StaggeredSvgDirective implements OnInit {
+
+  @Input() tmpoStaggered: number;
+  @Input() toProps: any;
+
+  constructor(private el: ElementRef,
+    private renderer: Renderer) { }
+
+  ngOnInit() {
+
+    // console.log('Element', this.el);
+    this.renderer.setElementStyle(
+      this.el.nativeElement, 'transition-delay', this.delay
+    );
+    setTimeout(() => {
+      Object.keys(this.toProps).forEach(k => {
+        this.renderer.setElementAttribute(
+          this.el.nativeElement, k, this.toProps[k]);
+      }, 0);
+    });
+
+
+  }
+
+  get delay(): string {
+    return this.tmpoStaggered + 'ms';
+  }
+
+}
+
+
 
 @NgModule({
-  declarations: [StaggeredDirective],
-  exports: [StaggeredDirective]
+  declarations: [
+    StaggeredDirective,
+    StaggeredSvgDirective
+  ],
+  exports: [
+    StaggeredDirective,
+    StaggeredSvgDirective
+  ]
 })
-export class TmpoStaggeredModule {}
+export class TmpoStaggeredModule { }
+
+
 
