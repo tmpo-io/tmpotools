@@ -1,0 +1,19 @@
+<nav>
+  <div class="burger-menu"
+    (click)="open()"
+    [ngClass]="{'open': (opened === true)}">
+    <div class="burger"></div>
+  </div>
+  <div class="menu"
+    [ngClass]="{'open': (opened === true)}"
+    >
+    <ul (click)="open()">
+      <li [routerLink]="['staggered']" >Staggered directive</li>
+      <li [routerLink]="['sortable']">Sortable directive</li>
+      <li [routerLink]="['tween']">Tween Service</li>
+      <li [routerLink]="['spritesheet']">SpriteSheet Component</li>
+      <li [routerLink]="['writer']">Txt Writer Component</li>
+      <li [routerLink]="['backdrop']">Animated Backdrop</li>
+    </ul>
+  </div>
+</nav>

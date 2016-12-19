@@ -5,9 +5,10 @@ import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
 
 import { AppRouterModule } from './demo/router/router';
-
+import { NavModule } from './demo/nav/nav.module';
 
 import { AppComponent } from './app.component';
+
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     HttpModule,
-    AppRouterModule
+    AppRouterModule,
+    NavModule
   ],
   providers: [],
   bootstrap: [AppComponent]
