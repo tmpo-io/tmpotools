@@ -13,12 +13,14 @@ export type BackdropDirection = 'in' | 'out';
   template: `
     <svg width="100%" height="100%">
       <defs>
-        <mask id="hole">
+        <mask id="hole" >
           <rect width="100%" height="100%" fill="white" />
           <svg:circle [attr.r]="radius" cx="50%" cy="50%" fill="black" />
         </mask>
       </defs>
-      <svg:rect width="100%" height="100%" [attr.fill]="color" mask="url(#hole)" />
+      <svg:rect mask="url(#hole)"
+        width="100%" height="100%" [attr.fill]="color"
+         />
     </svg>
   `,
   styles: [
