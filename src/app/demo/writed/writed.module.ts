@@ -15,6 +15,9 @@ import { TmpoWriterModule } from '../../writer/writer';
     }
   `],
   template: `
+    <div class="content">
+    <h2>Text writer</h2>
+    <hr>
     <button (click)="replay()">Replay</button>
     <div *ngIf="active">
     <tmpo-writer
@@ -27,6 +30,8 @@ import { TmpoWriterModule } from '../../writer/writer';
       speed="20"
       text="WITH TWO ELEMENTS AND A DELAY"
       (complete)="next()"></tmpo-writer>
+    </div>
+
     </div>
   `
 })
@@ -43,6 +48,7 @@ export class WritedDemoComponent {
 
   replay() {
     this.active = false;
+    this.step = 0;
     setTimeout(() => this.active = true, 0);
   }
 

@@ -15,11 +15,15 @@ import { SortResult, applySort } from '../../sortable/sortable';
 @Component({
   styles: [``],
   template: `
-    test
+    <div class="content">
+    <h2>Sortable Directive</h2>
+    <hr>
     <ul>
       <li *ngFor="let item of items; let i = index"
         [tmpoSortable]="i" (sorted)="sorted($event)">{{ item }}</li>
     </ul>
+    <p class="small">*Only browser support</p>
+    </div>
   `
 })
 export class SortableDemoComponent {

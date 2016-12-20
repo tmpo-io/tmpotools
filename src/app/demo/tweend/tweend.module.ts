@@ -16,10 +16,10 @@ import { Easing } from '../../tween/easing';
   styles: [`
     .box {
       position: absolute;
-      left: 20px;
-      top: 30px;
-      width: 100px;
-      height: 100px;
+      left: 0px;
+      top: 0px;
+      width: 30px;
+      height: 30px;
       background-color: red;
     }
     button {
@@ -27,7 +27,9 @@ import { Easing } from '../../tween/easing';
     }
   `],
   template: `
-    <p>Click anywhere on document to tween object</p>
+    <div class="content">
+      <p>Click anywhere on document to tween object</p>
+    <div>
     <div class="box"
       [style.top.px]="top"
       [style.left.px]="left"><div>
@@ -35,18 +37,18 @@ import { Easing } from '../../tween/easing';
 })
 export class TweenDemoComponent {
 
-  top: number = 30;
-  left: number = 10;
+  top: number = 100;
+  left: number = 30;
 
   constructor(public tween: TmpoTweenService) { }
 
   @HostListener('window:click', ['$event'])
   tweenTo(e) {
-    // console.log(e);
+    console.log(e);
     this.tween.stopAll();
     this.tween.to(this, 1000, {
-      top: e.pageY,
-      left: e.pageX
+      top: e.layerY - 15,
+      left: e.layerX - 15
     }, Easing.easeOutElastic)
     .subscribe(v => Object.assign(this, v));
   }

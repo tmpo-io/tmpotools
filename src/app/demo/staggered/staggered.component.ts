@@ -4,9 +4,10 @@ import { Component } from '@angular/core';
 
 @Component({
   styles: [`
-   div {
-     transition: all 1s ease-in; opacity: 0 }
-   div.tmpoIn {
+   li {
+     transition: all 1s ease-in;
+     opacity: 0 }
+   li.tmpoIn {
      opacity: 1
    }
   `],

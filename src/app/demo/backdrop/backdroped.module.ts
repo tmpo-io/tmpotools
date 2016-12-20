@@ -11,7 +11,8 @@ import { TmpoBackdropModule } from '../../backdrop/backdrop';
     tmpo-backdrop {
       z-index: 100;
     }
-    .content {
+    .middle {
+      width: 80%;
       position: absolute;
       top: 50%; left: 50%;
       transform: translate(-50%, -50%);
@@ -19,16 +20,19 @@ import { TmpoBackdropModule } from '../../backdrop/backdrop';
     .front {
       z-index: 101;
     }
+    button {
+      margin-top: 30px;
+    }
   `],
   template: `
     <tmpo-backdrop color="#52779c"
       [direction]="direction"
       ></tmpo-backdrop>
-    <div class="content">
-      <h1>This is the content showed inside the mask</h1>
+    <div class="middle">
+      <h2>This is the content showed inside the mask</h2>
       <button (click)="direction='out'">Toggle</button>
     </div>
-    <div class="content front">
+    <div class="middle front">
       <button (click)="direction='in'"
         *ngIf="direction=='out'">Toggle</button>
     </div>

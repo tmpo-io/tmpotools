@@ -6,7 +6,7 @@
 
 
 body {
-  font-family: Consolas, Menlo, monospace;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
   background-color: #eaeaea;
 }
 
@@ -20,4 +20,32 @@ body {
 
 nav {
   li { list-style: none }
+}
+
+
+.content {
+  margin: 80px 20px 30px 20px;
+  color: #666;
+
+  h2 {
+    font-size: 20px;
+  }
+
+  p {
+    line-height: 24px;
+  }
+
+  ul {
+    padding-top: 30px;
+  }
+
+  li {
+    line-height: 26px;
+  }
+
+  p.small {
+    margin-top: 24px;
+    font-size: 12px;
+  }
+
 }

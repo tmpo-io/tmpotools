@@ -7,6 +7,9 @@ import { TmpoSpriteModule } from '../../sprite/spritesheet';
 @Component({
   styles: [],
   template: `
+    <div class="content">
+    <h2>Spritesheet</h2>
+    <hr>
     <tmpo-sprite
       sprite="/assets/img/walker.png"
       width="184"
@@ -17,9 +20,11 @@ import { TmpoSpriteModule } from '../../sprite/spritesheet';
         [3, 100],
         [4, 100],
         [5, 100],
-        [6, 100]
+        [6, 100],
+        [7, 100]
         ]"
       ></tmpo-sprite>
+  </div>
   `,
 })
 export class SpritedDemoComponent {
