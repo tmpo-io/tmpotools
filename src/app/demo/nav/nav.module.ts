@@ -4,6 +4,11 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { TmpoStaggeredModule } from '../../staggered/staggered';
 
+export const CIRCLE_IN = { cx: '50%', cy: '50%', r: '100%' };
+export const CIRCLE_OUT = {
+    cx: 'calc(100% - 35px)', cy: '40px', r: '1%'
+};
+
 @Component({
   selector: 'app-nav',
   templateUrl: './nav.component.html',
@@ -12,10 +17,16 @@ import { TmpoStaggeredModule } from '../../staggered/staggered';
 export class AppNavMenuComponent {
   public opened: boolean;
 
+
+  toProps: { [key: string]: string } = CIRCLE_IN;
+
+
   open() {
     if (this.opened) {
-      this.opened = false;
+      this.toProps = CIRCLE_OUT;
+      setTimeout(() => this.opened = false, 400);
     } else {
+      this.toProps = CIRCLE_IN;
       this.opened = true;
     }
   }
@@ -38,4 +49,4 @@ export class AppNavMenuComponent {
     AppNavMenuComponent
   ]
 })
-export class NavModule {}
+export class NavModule { }

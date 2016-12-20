@@ -94,12 +94,13 @@ li {
   border-bottom: 1px solid #eaeaea;
   padding-left: 20px;
   opacity: 0;
-  transform: translateX(5%);
-  transition: all 0.6s ease-out;
+  perspective: 1000px;
+  transform: translate3d(2%, 0, -10%);
+  transition: all 0.6s ease-in;
 
   &.tmpoIn {
     opacity: 1;
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 
 }

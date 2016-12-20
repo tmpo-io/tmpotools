@@ -1,7 +1,7 @@
 
 import {
-  Directive, Input, ElementRef,
-  Renderer, OnInit, NgModule
+  Directive, Input, Output, ElementRef,
+  Renderer, OnInit, NgModule, HostBinding, EventEmitter
 } from '@angular/core';
 
 @Directive({
@@ -34,26 +34,28 @@ export class StaggeredDirective implements OnInit {
 }
 
 @Directive({
-  selector: '[tmpoStaggeredSvg]'
+  selector: '[tmpoAnimatedSvg]'
 })
-export class StaggeredSvgDirective implements OnInit {
+export class AnimatedSvgDirective implements OnInit {
 
   @Input() tmpoStaggered: number;
-  @Input() toProps: any;
+  @Output() endTransition = new EventEmitter<boolean>();
+
+  private started = false;
 
   constructor(private el: ElementRef,
     private renderer: Renderer) { }
 
-  ngOnInit() {
+  @Input() set toProps(props: { [key: string]: string }) {
 
-    // console.log('Element', this.el);
     this.renderer.setElementStyle(
       this.el.nativeElement, 'transition-delay', this.delay
     );
     setTimeout(() => {
-      Object.keys(this.toProps).forEach(k => {
+      this.started = true;
+      Object.keys(props).forEach(k => {
         this.renderer.setElementAttribute(
-          this.el.nativeElement, k, this.toProps[k]);
+          this.el.nativeElement, k, props[k]);
       }, 0);
     });
 
@@ -64,6 +66,17 @@ export class StaggeredSvgDirective implements OnInit {
     return this.tmpoStaggered + 'ms';
   }
 
+  ngOnInit() {
+    this.renderer.listen(this.el.nativeElement, 'transitionend', (p) => {
+      if (this.started) {
+        this.endTransition.next(true);
+        this.started = false;
+      // console.log('transition end', p);
+      }
+    });
+  }
+
+
 }
 
 
@@ -71,11 +84,11 @@ export class StaggeredSvgDirective implements OnInit {
 @NgModule({
   declarations: [
     StaggeredDirective,
-    StaggeredSvgDirective
+    AnimatedSvgDirective
   ],
   exports: [
     StaggeredDirective,
-    StaggeredSvgDirective
+    AnimatedSvgDirective
   ]
 })
 export class TmpoStaggeredModule { }
