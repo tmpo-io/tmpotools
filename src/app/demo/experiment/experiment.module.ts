@@ -27,7 +27,7 @@ import { TmpoStaggeredModule } from '../../staggered/staggered';
       top: 0; left:0; right:0; bottom:0;
     }
     svg {
-      width: 50%;
+      width: 80%;
       height: 50%;
       position: absolute;
       top: 50%;
