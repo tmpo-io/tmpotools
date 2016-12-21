@@ -38,7 +38,8 @@ export class StaggeredDirective implements OnInit {
 })
 export class AnimatedSvgDirective implements OnInit {
 
-  @Input() tmpoStaggered: number;
+  @Input() tmpoAnimatedSvg: number = 0;
+  @Input() transition: string;
   @Output() endTransition = new EventEmitter<boolean>();
 
   private started = false;
@@ -47,6 +48,12 @@ export class AnimatedSvgDirective implements OnInit {
     private renderer: Renderer) { }
 
   @Input() set toProps(props: { [key: string]: string }) {
+
+    if (this.transition && this.transition !== '') {
+      this.renderer.setElementStyle(
+        this.el.nativeElement, 'transition', this.transition
+      );
+    }
 
     this.renderer.setElementStyle(
       this.el.nativeElement, 'transition-delay', this.delay
@@ -63,7 +70,7 @@ export class AnimatedSvgDirective implements OnInit {
   }
 
   get delay(): string {
-    return this.tmpoStaggered + 'ms';
+    return this.tmpoAnimatedSvg + 'ms';
   }
 
   ngOnInit() {
@@ -71,7 +78,7 @@ export class AnimatedSvgDirective implements OnInit {
       if (this.started) {
         this.endTransition.next(true);
         this.started = false;
-      // console.log('transition end', p);
+        // console.log('transition end', p);
       }
     });
   }
