@@ -11,11 +11,11 @@ import { TmpoStaggeredModule } from '../../staggered/staggered';
   template: `
     <svg>
       <rect x="0" y="20%" height="0" width="100%" fill="#ffffff"
-        tmpoAnimatedSvg="100"
+        tmpoAnimatedSvg="680"
         [toProps]="{height: '80%' }"
         />
       <rect x="0" y="0" height="0" width="100%" fill="#558abb"
-        tmpoAnimatedSvg
+        tmpoAnimatedSvg="500"
         [toProps]="{height: '20%' }"
         transition="all 200ms cubic-bezier(0, 0, 0.96,-0.07)"
         />
