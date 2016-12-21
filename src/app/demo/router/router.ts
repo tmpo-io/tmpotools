@@ -34,6 +34,10 @@ const ROUTES: Routes = [
   {
     path: 'experiment',
     loadChildren: 'app/demo/experiment/experiment.module#ExperimentModule'
+  },
+  {
+    path: 'experiment2',
+    loadChildren: 'app/demo/experiment2/experiment.module#Experiment2Module'
   }
 ];
 
