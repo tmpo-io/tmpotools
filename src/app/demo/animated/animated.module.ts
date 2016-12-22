@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 
 import { TmpoAnimateModule } from '../../animate/animate.module';
 import { AppExample1Component } from './example1.component';
+import { AppExample2Component } from './example2.component';
+
 
 export const DEFAULT_ANIM = [
   { transform: 'translate3d(-50%, 0, 0)' },
@@ -53,7 +55,8 @@ const ROUTES = [{
   ],
   declarations: [
     AnimatedComponent,
-    AppExample1Component
+    AppExample1Component,
+    AppExample2Component
   ],
 })
 export class AnimatedDemoModule { }
