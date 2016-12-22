@@ -78,7 +78,6 @@ export class AnimatedSvgDirective implements OnInit {
       if (this.started) {
         this.endTransition.next(true);
         this.started = false;
-        // console.log('transition end', p);
       }
     });
   }

@@ -8,20 +8,26 @@ import {
 import { CommonModule } from '@angular/common';
 
 
-// This is an ugly hack to get a callback on Component
-// destruction
+/*
+This is an ugly hack to get a callback on Component
+   destruction.
+   What we do is create a dummy animation on :host GroupTransition
+   and use it's callback to trigger animation destroy
+*/
 import {
   animate, state, style,
   transition, trigger, AnimationPlayer
 } from '@angular/core';
 
 
-export interface AnimationDuration {
+export interface AnimationProps {
   duration: number;
   iterations: number;
+  iterationStart?: number;
   delay?: number;
-  easing?: string;
+  endDelay?: number;
   direction?: string;
+  easing?: string;
   fill?: string;
 }
 
@@ -32,8 +38,7 @@ export interface AnimationDuration {
 export class TmpoWebAnimateDirective implements OnDestroy {
 
   @Input()
-  set tmpoWebAnimate(keyframes: string) {
-    // console.log(keyframes);
+  set tmpoWebAnimate(keyframes: any) {
     if (this.player) {
       this.player.cancel();
     }
@@ -41,16 +46,21 @@ export class TmpoWebAnimateDirective implements OnDestroy {
       return;
     };
 
-    if (this.keyframes) {
-      this.keyframes = keyframes;
+    if (!this._keyframes) {
+      this._keyframes = keyframes;
     }
 
-    this.player = this.animate(keyframes, this.timming);
+    this.player = this.animate(keyframes, this.animProps);
     this.player.play();
   };
 
   @Input()
-  timming: AnimationDuration = {
+  set keyframes(keyframes: any) {
+    this.tmpoWebAnimate = keyframes;
+  }
+
+  @Input()
+  animProps: AnimationProps = {
     duration: 500,
     iterations: 1,
     easing: 'ease-in-out',
@@ -58,11 +68,15 @@ export class TmpoWebAnimateDirective implements OnDestroy {
   };
 
   player: any;
-  keyframes: any;
+  _keyframes: any;
 
   constructor(private el: ElementRef) { }
 
-  animate(keyframes: any, timming: AnimationDuration): any {
+  get keyframes() {
+    return this._keyframes;
+  }
+
+  animate(keyframes: any, timming: AnimationProps): any {
     return this.el.nativeElement
       .animate(keyframes, timming);
   }
@@ -114,7 +128,7 @@ export class TmpoGroupAnimateComponent implements AfterContentInit {
   keyframes: [{ [key: string]: string }];
 
   @Input()
-  timming: any = {};
+  animProps: any = {};
 
   private total: number = 0;
 
@@ -123,8 +137,8 @@ export class TmpoGroupAnimateComponent implements AfterContentInit {
     // console.log('Animation start event: ', event);
     if (event.toState === 'void') {
       this.group.map((el, i) => {
-        el.timming = this.buildStagger(el, i, true);
-        el.timming.direction = 'reverse';
+        el.animProps = this.buildStagger(el, i, true);
+        el.animProps.direction = 'reverse';
         el.tmpoWebAnimate = this.buildKeyframes(el);
       });
     }
@@ -133,8 +147,7 @@ export class TmpoGroupAnimateComponent implements AfterContentInit {
   ngAfterContentInit() {
     this.total = 0;
     this.group.forEach((el, i) => {
-      el.timming = this.buildStagger(el, i);
-      // console.log(this.buildKeyframes(el));
+      el.animProps = this.buildStagger(el, i);
       el.tmpoWebAnimate = this.buildKeyframes(el);
       this.total++;
     });
@@ -156,8 +169,8 @@ export class TmpoGroupAnimateComponent implements AfterContentInit {
     }
 
     return Object.assign({},
-      this.timming,
-      props.timming, {
+      this.animProps,
+      props.animProps, {
         delay
       });
   }
