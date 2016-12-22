@@ -15,6 +15,10 @@
     </svg>
     <ul (click)="open()">
       <li
+        [routerLink]="['animated']"
+        tmpoStaggered="100"
+        >Animate Module</li>
+      <li
         [routerLink]="['staggered']"
         tmpoStaggered="100"
         >Staggered directive</li>

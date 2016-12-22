@@ -9,8 +9,13 @@ import { MainComponent } from '../main/main.component';
 const ROUTES: Routes = [
   { path: '', component: MainComponent },
   {
+    path: 'animated',
+    loadChildren: 'app/demo/animated/animated.module#AnimatedDemoModule'
+  },
+  {
     path: 'staggered',
-    loadChildren: 'app/demo/staggered/staggered.module#DemoStaggeredModule' },
+    loadChildren: 'app/demo/staggered/staggered.module#DemoStaggeredModule'
+  },
   {
     path: 'sortable',
     loadChildren: 'app/demo/sortable/sortabled.module#DemoSortableModule'
