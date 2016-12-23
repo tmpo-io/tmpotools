@@ -3,11 +3,6 @@ import {
   Input, Output, ViewChild, Renderer
 } from '@angular/core';
 
-import {
-  animate, state, style, trigger, transition
-} from '@angular/core';
-
-
 import { CommonModule } from '@angular/common';
 import { TmpoBrowserModule, WindowService } from '../browser/browser';
 
@@ -18,6 +13,7 @@ export type BackdropDirection = 'open' | 'close';
 @Component({
   selector: 'tmpo-backdrop',
   template: `
+
     <ng-content *ngIf="this.ready"></ng-content>
     <div class="circle" #ref
       [style.border-color]="color"
@@ -26,14 +22,16 @@ export type BackdropDirection = 'open' | 'close';
       [style.border-width.px]="border"></div>
   `,
   styles: [
-    `:host {
+  `:host {
       position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      width: 100%;
+      height: 100%;
       overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
      }
+
      .circle {
       //  pointer-events: none;
        position: absolute;
@@ -43,7 +41,7 @@ export type BackdropDirection = 'open' | 'close';
        transform: translate(-50%, -50%);
        border-radius: 50%;
      }
-    `
+  `
   ],
 })
 export class TmpoBackdropComponent implements OnInit {
