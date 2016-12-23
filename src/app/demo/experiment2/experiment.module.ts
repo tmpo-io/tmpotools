@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 import { TmpoAnimateModule } from '../../animate/animate.module';
 
 export const DEFAULT_ANIM = [
-  {transform: 'translate3d(-50%, 0, 0)'},
+  {transform: 'translate3d(-20%, 0, 0)'},
   {transform: 'translate3d(0, 0, 0)'}
   ];
 
@@ -14,7 +14,8 @@ export const DEFAULT_ANIM = [
   template: `
   <div class='content'>
     <tmpo-groupAnimate *ngIf="active"
-      stagger="50" [keyframes]="animation">
+      stagger="50" [keyframes]="animation"
+      [animProps]="{duration: 2000}">
       <ul>
         <li *ngFor="let item of items" tmpoWebAnimate>{{ item }}</li>
       </ul>

@@ -7,7 +7,9 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-declare const Infinity:any;
+import * as utils from './utils';
+
+declare const Infinity: any;
 
 /*
 This is an ugly hack to get a callback on Component
@@ -33,11 +35,11 @@ export interface AnimationProps {
 }
 
 export const BASE_PROPS: AnimationProps = {
-    duration: 500,
-    iterations: 1000000,
-    easing: 'ease-in-out',
-    fill: 'forwards'
-  };
+  duration: 500,
+  iterations: 1000000,
+  easing: 'ease-in-out',
+  fill: 'forwards'
+};
 
 
 @Directive({
@@ -64,6 +66,7 @@ export class TmpoWebAnimateDirective implements OnDestroy, OnChanges {
   set animProps(props) {
     // console.log('setter animprops', props);
     this._animProps = Object.assign({}, BASE_PROPS, props);
+    this.ownsProps = true;
   };
 
   get animProps(): AnimationProps {
@@ -72,7 +75,7 @@ export class TmpoWebAnimateDirective implements OnDestroy, OnChanges {
 
   player: any;
   _keyframes: any;
-
+  ownsProps: boolean = false;
 
   private _animProps = BASE_PROPS;
 
@@ -88,7 +91,7 @@ export class TmpoWebAnimateDirective implements OnDestroy, OnChanges {
     }
     this.player = this.el.nativeElement
       .animate(this.keyframes, this.animProps);
-    console.log(this.player, this.animProps);
+    // console.log(this.player, this.animProps);
     this.player.play();
   }
 
@@ -110,6 +113,7 @@ export class TmpoWebAnimateDirective implements OnDestroy, OnChanges {
   }
 
 }
+
 
 
 @Component({
@@ -146,55 +150,34 @@ export class TmpoGroupAnimateComponent implements AfterContentInit {
   @Input()
   animProps: any = {};
 
-  private total: number = 0;
-
   @HostListener('@tmpo.start', ['$event'])
   animationStart(event: any) {
-    // console.log('Animation start event: ', event);
     if (event.toState === 'void') {
-      this.group.map((el, i) => {
-        el.animProps = this.buildStagger(el, i, true);
-        el.animProps.direction = 'reverse';
-        el.tmpoWebAnimate = this.buildKeyframes(el);
-      });
+      this.animate(true);
     }
   }
 
   ngAfterContentInit() {
-    this.total = 0;
-    this.group.forEach((el, i) => {
-      el.animProps = this.buildStagger(el, i);
-      el.tmpoWebAnimate = this.buildKeyframes(el);
-      this.total++;
-    });
+    this.animate();
   }
 
-  private buildKeyframes(el: any): any {
-    if (el.keyframes) {
-      return el.keyframes;
-    }
-    return this.keyframes;
-  }
+  animate(reverse = false) {
+    // take the list
+    let stagger = (reverse === false) ?
+      utils.getStagger(this.stagger) :
+      utils.getStaggerReverse(this.stagger, this.group.length);
 
-  private buildStagger(props, num: number, reverse = false): any {
-    let delay;
-    if (!reverse) {
-      delay = num * this.stagger;
-    } else {
-      delay = (this.total * this.stagger) - (num * this.stagger);
-    }
+    this.group
+      .map(utils.addProps(this.animProps))
+      .map(stagger)
+      .map(utils.ensureIterations)
+      .map(utils.addReverse(reverse))
+      .map(utils.getKeyframes(this.keyframes))
+      .map(el => el.animate());
 
-    return Object.assign({},
-      this.animProps,
-      props.animProps, {
-        delay
-      });
   }
 
 }
-
-
-
 
 
 @NgModule({
