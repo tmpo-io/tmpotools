@@ -9,7 +9,7 @@ import { CommonModule } from '@angular/common';
 
 import * as utils from './utils';
 
-declare const Infinity: any;
+// declare const Infinity: any;
 
 /*
 This is an ugly hack to get a callback on Component
@@ -36,7 +36,7 @@ export interface AnimationProps {
 
 export const BASE_PROPS: AnimationProps = {
   duration: 500,
-  iterations: 1000000,
+  iterations: Infinity,
   easing: 'ease-in-out',
   fill: 'forwards'
 };
