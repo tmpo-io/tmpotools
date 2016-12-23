@@ -1,69 +1,120 @@
 import {
-  Component, OnInit, OnDestroy, NgModule, Input, HostListener
+  Component, EventEmitter, OnInit, OnDestroy, NgModule,
+  Input, Output, ViewChild, Renderer
 } from '@angular/core';
 
+import {
+  animate, state, style, trigger, transition
+} from '@angular/core';
+
+
 import { CommonModule } from '@angular/common';
+import { TmpoBrowserModule, WindowService } from '../browser/browser';
 
 
-export type BackdropDirection = 'in' | 'out';
+export type BackdropDirection = 'open' | 'close';
 
 
 @Component({
   selector: 'tmpo-backdrop',
   template: `
-    <svg width="100%" height="100%">
-      <defs>
-        <mask id="hole" >
-          <rect width="100%" height="100%" fill="white" />
-          <svg:circle [attr.r]="radius" cx="50%" cy="50%" fill="black" />
-        </mask>
-      </defs>
-      <svg:rect mask="url(#hole)"
-        width="100%" height="100%" [attr.fill]="color"
-         />
-    </svg>
+    <ng-content *ngIf="this.ready"></ng-content>
+    <div class="circle" #ref
+      [style.border-color]="color"
+      [style.width.px]="width"
+      [style.height.px]="height"
+      [style.border-width.px]="border"></div>
   `,
   styles: [
     `:host {
-      pointer-events: none;
       position: absolute;
       top: 0;
       left: 0;
       right: 0;
       bottom: 0;
+      overflow: hidden;
      }
-     circle {
-       transition: all 0.6s ease-in-out;
+     .circle {
+      //  pointer-events: none;
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       border: 1px solid black;
+       transform: translate(-50%, -50%);
+       border-radius: 50%;
      }
-     `
-  ]
+    `
+  ],
 })
-export class TmpoBackdropComponent {
+export class TmpoBackdropComponent implements OnInit {
 
-  radius: string = '100%';
 
   @Input() color: string = '#000000';
-  @Input() delay: number = 0;
+  @Input() delay: number = 1;
+  @Input() transition: string = 'all 800ms cubic-bezier(1,.01,0,.99)';
 
-  @Input() set direction(name: BackdropDirection) {
-    if (name === 'in') {
-      this.radius = '0%';
-      setTimeout(() => this.radius = '75%', this.delay);
-      // @todo .. set pointer-events to true on end...
-      return;
-    }
-    this.radius = '75%';
-    setTimeout(() => this.radius = '0%', this.delay);
-    // @todo enable pointer events on end..
+  @Output() closed = new EventEmitter<boolean>();
+
+  width = 1000;
+  height = 1000;
+  border = 1;
+  ready = false;
+
+  @ViewChild('ref') ref: any;
+
+  constructor(
+    private renderer: Renderer,
+    private win: WindowService
+  ) { }
+
+
+  ngOnInit() {
+    this.open();
   }
 
+  close() {
+
+    let diagonal = this.getViewPortDiagonal();
+    setTimeout(() => {
+      this.ready = false;
+      this.width = this.height = this.border = diagonal;
+    }, this.delay);
+
+    setTimeout(() => this.closed.next(true), 800);
+
+  }
+
+  getViewPortDiagonal(): number {
+    let vport = this.win.getViewportSize();
+    return Math.sqrt(
+      Math.pow(vport.width, 2) + Math.pow(vport.height, 2)
+    );
+  }
+
+  open() {
+
+    let diagonal = this.getViewPortDiagonal();
+    this.width = this.height = diagonal;
+
+    this.renderer.setElementStyle(this.ref.nativeElement,
+      'transition', this.transition);
+
+    setTimeout(() => {
+      this.width = this.height = 0;
+      this.border = diagonal;
+    }, this.delay);
+
+    setTimeout(() => this.ready = true, 801);
+
+  }
 
 
 }
 
 
+
 @NgModule({
-  imports: [CommonModule],
+  imports: [CommonModule, TmpoBrowserModule],
   declarations: [TmpoBackdropComponent],
   exports: [TmpoBackdropComponent]
 })

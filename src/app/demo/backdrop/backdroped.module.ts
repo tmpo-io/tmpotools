@@ -19,28 +19,30 @@ import { TmpoBackdropModule } from '../../backdrop/backdrop';
     }
     .front {
       z-index: 101;
+      color: #fff;
     }
     button {
       margin-top: 30px;
     }
   `],
   template: `
-    <tmpo-backdrop color="#52779c"
-      [direction]="direction"
-      ></tmpo-backdrop>
+    <tmpo-backdrop color="#52779c" #bd
+      *ngIf="show"
+      (closed)="show=false">
+      <div class="middle front">
+        <p>This content will be showed inside the backdrop</p>
+        <button (click)="bd.close()">Close</button>
+      </div>
+    </tmpo-backdrop>
     <div class="middle">
       <h2>This is the content showed inside the mask</h2>
-      <button (click)="direction='out'">Toggle</button>
-    </div>
-    <div class="middle front">
-      <button (click)="direction='in'"
-        *ngIf="direction=='out'">Toggle</button>
+      <button (click)="show=true">Open</button>
     </div>
   `
 })
 export class BackdropedDemoComponent {
 
-  direction = 'out';
+  show = false;
 
 
 }
