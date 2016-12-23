@@ -13,8 +13,8 @@ import { TmpoCountDownComponent } from './countdown.component';
     }
     tmpo-countdown {
       z-index: 1000;
-      width: 40%;
-      height: 40%;
+      width: 200px;
+      height: 200px;
       color: #fff;
     }
     .middle {
