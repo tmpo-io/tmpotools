@@ -19,6 +19,13 @@ export const DEFAULT_ANIM = [
   templateUrl: './animated.component.html',
   styles: [
     `
+    tmpo-groupAnimate {
+      margin-top: 40px;
+      width: 400px;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
     `
   ]
 })
@@ -28,15 +35,17 @@ export class AnimatedComponent {
 
   animation = DEFAULT_ANIM;
 
-  items = Array.apply(null, {length: 50})
+  items = Array.apply(null, { length: 50 })
     .map(Number.call, Number);
 
   constructor(private router: Router) {
 
   }
 
-  leave() {
+
+  rand() {
     this.active = false;
+    setTimeout(() => this.active = true, 1000);
   }
 
 }
@@ -56,7 +65,7 @@ const ROUTES = [{
   declarations: [
     AnimatedComponent,
     AppExample1Component,
-    AppExample2Component
+    AppExample2Component,
   ],
 })
 export class AnimatedDemoModule { }

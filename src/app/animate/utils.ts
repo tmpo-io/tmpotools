@@ -17,7 +17,7 @@ export const getStagger = stagger => (item, i) => {
 
 // Reverse stagger
 export const getStaggerReverse = (stagger, count) => (item, i) => {
-  item.animProps.delay = (count - stagger) - (i * stagger);
+  item.animProps.delay = (count * stagger) - (i * stagger);
   return item;
 };
 
@@ -31,6 +31,8 @@ export const ensureIterations = element => {
 export const addReverse = reverse => item => {
   if (reverse) {
     item.animProps.direction = 'reverse';
+    item.animProps.fill = 'forwards';
+
   }
   return item;
 };

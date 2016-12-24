@@ -1,5 +1,5 @@
 
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 
 
@@ -7,31 +7,60 @@ import { Component, Input } from '@angular/core';
   selector: 'app-example2',
   template: `
 
-  <div class="circle"></div>
+  <div class="box"
+    [style.background-color]="color"></div>
 
   `,
   styles: [
     `
     :host {
-      display: block;
-      width: 300px;
-      height: 300px;
-      position: relative;
+      width: 40px;
+      height: 40px;
     }
-    .circle {
-      position: absolute;
-      height: 50%;
-      width: 50%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      border: 3px solid #004358;
-      border-radius: 50%;
+    .box {
+      width: 40px;
+      height: 40px;
     }
     `
   ]
 })
-export class AppExample2Component {
+export class AppExample2Component implements OnInit {
   @Input()
   delay: number = 1;
+
+  colors = ['#F57336', '#7F1637', '#047878', '#FFB733', '#C22121'];
+  color: string;
+
+  ngOnInit() {
+    this.color = this.colors[this.rand(this.colors.length)];
+  }
+
+  rand(y: number): number {
+    return Math.round(Math.random() * (y - 1));
+  }
+
+
 }
+
+
+
+// @Component({
+//   selector: 'tmpo-generator',
+//   template: '<ng-content *ngFor="let item of amount"></ng-content>'
+// })
+// export class TmpoGeneratorComponent implements OnInit {
+
+//   @Input()
+//   number = 3;
+
+//   amount: number[] = [];
+
+
+//   ngOnInit() {
+//     for (let i = 0; i < this.number; i++) {
+//       this.amount.push(i);
+//     }
+//   }
+
+
+// }

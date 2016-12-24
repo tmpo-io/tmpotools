@@ -4,7 +4,18 @@
 
   <app-example1></app-example1>
 
-  <app-example2></app-example2>
+  <hr>
+
+  <button (click)="rand()">Randomize</button>
+  <tmpo-groupAnimate *ngIf="active"
+    stagger="100"
+    [keyframes]="[{opacity: 0}, {opacity: 1}]"
+    [animProps]="{duration: 400}">
+    <app-example2
+      *ngFor="let item of [1,2,3,4,5]"
+      tmpoWebAnimate></app-example2>
+  </tmpo-groupAnimate>
+
 
 
 

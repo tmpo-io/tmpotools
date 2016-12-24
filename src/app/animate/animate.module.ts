@@ -102,13 +102,13 @@ export class TmpoWebAnimateDirective implements OnDestroy, OnChanges {
   }
 
   ngOnChanges() {
-    console.log('changes');
     this.animate();
   }
 
   ngOnDestroy() {
     if (this.player) {
       this.player.cancel();
+      this.player = null;
     }
   }
 
